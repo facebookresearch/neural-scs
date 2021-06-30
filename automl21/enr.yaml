@@ -1,0 +1,85 @@
+# Copyright (c) Facebook, Inc. and its affiliates.
+
+device: cuda
+seed: 0
+seed: 0
+test_freq: 1000
+test_freq: 1000
+
+
+m: 25
+m: 25
+n: 25
+n: 25
+
+
+beta: 0.5
+beta: 0.5
+sparse_density: 0.1
+sparse_density: 0.1
+
+
+lr: 6.543614893075636e-05
+lr: 6.543614893075636e-05
+max_gradient_norm: 43.786626135889776
+max_gradient_norm: 43.786626135889776
+
+
+num_model_updates: 1000000.0
+num_model_updates: 1000000.0
+
+
+num_ISTA_iterations_train: 25
+num_ISTA_iterations_train: 25
+num_ISTA_iterations_eval: 25
+num_ISTA_iterations_eval: 25
+
+
+rec_model:
+rec_model:
+  _target_: benchmark.accel.NeuralGRU
+  _target_: benchmark.accel.NeuralGRU
+  rec_n_hidden: 128
+  rec_n_hidden: 128
+  rec_n_layers: 1
+  rec_n_layers: 1
+  init_hidden_depth: 1
+  init_hidden_depth: 1
+  init_hidden_n_hidden: 1024
+  init_hidden_n_hidden: 1024
+  init_hidden_weight_scale: None
+  init_hidden_weight_scale: None
+  init_act: relu
+  init_act: relu
+  enc_hidden_depth: 1
+  enc_hidden_depth: 1
+  enc_n_hidden: 512
+  enc_n_hidden: 512
+  enc_weight_scale: None
+  enc_weight_scale: None
+  enc_act: relu
+  enc_act: relu
+  dec_hidden_depth: 1
+  dec_hidden_depth: 1
+  dec_n_hidden: 256
+  dec_n_hidden: 256
+  dec_weight_scale: 23.314259445200577
+  dec_weight_scale: 23.314259445200577
+  dec_act: relu
+  dec_act: relu
+  learn_init_iterate: true
+  learn_init_iterate: true
+  learn_init_hidden: true
+  learn_init_hidden: true
+  learn_init_iterate_delta: true
+  learn_init_iterate_delta: true
+  output_delta_weight: 1.0
+  output_delta_weight: 1.0
+
+
+hydra:
+hydra:
+  run:
+  run:
+    dir: enr_results
+    dir: enr_results

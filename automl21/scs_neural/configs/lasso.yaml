@@ -1,0 +1,81 @@
+# Copyright (c) Facebook, Inc. and its affiliates.
+
+
+device: cpu
+
+problem_name: lasso
+
+lasso_cons_base: 100
+lasso_var_base: 50
+num_iterations_train: 50
+num_iterations_eval: 50
+
+lr: 0.00017752018855789772
+beta1: 0.1
+beta2: 0.9
+cosine_lr_decay: false
+seed: 0
+use_train_seed: true
+train_seed: 0
+train_data_seed: 0
+
+scs:
+  use_problem_scaling: true
+  scale: 1
+  rho_x: 0.001
+  alpha: 1.5
+
+rec_model:
+  _target_: accel.NeuralLSTM
+  rec_n_hidden: 512
+  rec_n_layers: 2
+  init_hidden_depth: 2
+  init_hidden_n_hidden: 512
+  init_hidden_weight_scale: None
+  init_act: relu
+  enc_hidden_depth: 0
+  enc_n_hidden: 512
+  enc_weight_scale: None
+  enc_act: relu
+  dec_hidden_depth: 4
+  dec_n_hidden: 1024
+  dec_weight_scale: 10.599614252689696
+  dec_act: tanh
+  learn_init_iterate: true
+  learn_init_hidden: true
+  device: cuda
+
+model: ${rec_model}
+
+num_model_updates: 1000  # Use 100000 to reproduce results
+
+clip_gradients: true
+max_gradient: 16.916006846642052
+
+use_sparse_matrix: true
+use_jitted_cones: true
+unscale_before_model: false
+regularize: 0.0
+use_unscaled_loss: true
+
+num_train_instances: 1000  # Use 100000 to reproduce results
+num_validate_instances: 64  # Use 512 to reproduce results
+num_test_instances: 64  # Use 512 to reproduce results
+train_batch_size: 64  # num_test_instances must be an exact multiple of test_batch_size for current jit
+test_batch_size: ${train_batch_size}
+validate_batch_size: ${train_batch_size}
+train_graph_batch_size: 2
+test_graph_batch_size: 2
+validate_graph_batch_size: 2
+
+test_freq: 100  # Use 1000 to reproduce results
+save_freq: 100  # Use 1000 to reproduce results
+log_tensorboard: true
+tensorboard_dir: runs
+
+hydra:
+  run:
+    dir: ./exp_local/${now:%Y.%m.%d}/${now:%H%M%S}.scs
+  sweep:
+    dir: ./exp/${now:%Y.%m.%d}/${now:%H%M%S}.scs
+    subdir: ${hydra.job.num}
