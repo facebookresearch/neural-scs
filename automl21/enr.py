@@ -239,7 +239,7 @@ class Workspace:
         mu = 0.001*mu_max
 
         ATA = A.t().mm(A)
-        L = torch.eig(ATA).eigenvalues[:,0].max() + mu/2.
+        L = torch.svdvals(A).max() ** 2 + mu/2
 
         A_np = to_np(A)
         b_np = to_np(b)
